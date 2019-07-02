@@ -527,7 +527,7 @@ class OpenGraphShare(BaseModel):
 
     content_type = models.ForeignKey(ContentType, blank=True, null=True, on_delete=models.SET_NULL)
     object_id = models.PositiveIntegerField(blank=True, null=True)
-    content_object = GenericForeignKey('content_type', 'object_id', on_delete=models.SET_NULL)
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     # completion data
     error_message = models.TextField(blank=True, null=True)
