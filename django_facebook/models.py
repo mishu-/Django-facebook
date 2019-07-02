@@ -359,7 +359,7 @@ class FacebookProfile(FacebookProfileModel):
     Use this by setting
     AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
     '''
-    user = models.OneToOneField(get_user_model_setting())
+    user = models.OneToOneField(get_user_model_setting(), on_delete=models.SET_NULL)
 
 if getattr(settings, 'AUTH_USER_MODEL', None) == 'django_facebook.FacebookCustomUser':
     try:
