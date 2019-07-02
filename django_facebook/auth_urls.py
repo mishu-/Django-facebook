@@ -31,12 +31,12 @@ from django_facebook.utils import replication_safe
 urlpatterns = [
     url(
         r'^login/$',
-        replication_safe(LoginView.as_view(template_name='users/login.html'),
+        replication_safe(LoginView.as_view(template_name='users/login.html')),
         name='auth_login'
     ),
     url(
         r'^logout/$',
-        replication_safe(LogoutView.as_view(template_name='users/logout.html'),
+        replication_safe(LogoutView.as_view(template_name='users/logout.html')),
         name='auth_logout'
     ),
     url(
