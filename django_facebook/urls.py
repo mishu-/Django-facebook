@@ -5,11 +5,12 @@ from django.conf import settings
 from django_facebook import admin
 from .views import connect, disconnect, example
 from .example_views import *
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    url(r'^connect/$', connect, name='facebook_connect'),
+    url(r'^connect/$', csrf_exempt(connect), name='facebook_connect'),
     url(r'^disconnect/$',
-        disconnect, name='facebook_disconnect'),
+        csrf_exempt(disconnect), name='facebook_disconnect'),
     url(r'^example/$', example, name='facebook_example'),
 ]
 
