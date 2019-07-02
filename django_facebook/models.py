@@ -158,6 +158,7 @@ class BaseFacebookModel(models.Model):
 
     class Meta:
         abstract = True
+        app_label = "django_facebook"
 
     def refresh(self):
         '''
@@ -306,6 +307,7 @@ class FacebookModel(BaseFacebookModel):
 
     class Meta:
         abstract = True
+        app_label = "django_facebook"
 
 
 # better name for the mixin now that it can also be used for user models
@@ -330,6 +332,7 @@ class FacebookUser(models.Model):
 
     class Meta:
         unique_together = ['user_id', 'facebook_id']
+        app_label = "django_facebook"
 
     def __str__(self):
         return u'Facebook user %s' % self.name
@@ -350,6 +353,7 @@ class FacebookLike(models.Model):
 
     class Meta:
         unique_together = ['user_id', 'facebook_id']
+        app_label = "django_facebook"
 
 
 class FacebookProfile(FacebookProfileModel):
@@ -424,6 +428,7 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+        app_label = "django_facebook"
 
 
 @python_2_unicode_compatible
@@ -466,6 +471,7 @@ class CreatedAtAbstractBase(BaseModel):
 
     class Meta:
         abstract = True
+        app_label = "django_facebook"
 
 
 class OpenGraphShare(BaseModel):
@@ -510,7 +516,7 @@ class OpenGraphShare(BaseModel):
     '''
     objects = model_managers.OpenGraphShareManager()
 
-    user = models.ForeignKey(get_user_model_setting())
+    user = models.ForeignKey(get_user_model_setting(), on_delete=models.SET_NULL)
 
     # domain stores
     action_domain = models.CharField(max_length=255)
@@ -519,9 +525,9 @@ class OpenGraphShare(BaseModel):
     # what we are sharing, dict and object
     share_dict = models.TextField(blank=True, null=True)
 
-    content_type = models.ForeignKey(ContentType, blank=True, null=True)
+    content_type = models.ForeignKey(ContentType, blank=True, null=True, on_delete=models.SET_NULL)
     object_id = models.PositiveIntegerField(blank=True, null=True)
-    content_object = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id', on_delete=models.SET_NULL)
 
     # completion data
     error_message = models.TextField(blank=True, null=True)
@@ -540,6 +546,7 @@ class OpenGraphShare(BaseModel):
 
     class Meta:
         db_table = facebook_settings.FACEBOOK_OG_SHARE_DB_TABLE
+        app_label = "django_facebook"
 
     def save(self, *args, **kwargs):
         if self.user and not self.facebook_user_id:
