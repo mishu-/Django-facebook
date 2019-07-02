@@ -74,7 +74,7 @@ class Migration(migrations.Migration):
                 ('removed_at', models.DateTimeField(null=True, blank=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, db_index=True)),
-                ('content_type', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, blank=True, to='contenttypes.ContentType', null=True)),
+                ('content_type', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, blank=True, to='contenttypes.ContentType')),
                 ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
             options={
